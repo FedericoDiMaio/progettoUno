@@ -7,6 +7,6 @@
     <title>errore</title>
 </head>
 <body>
-    <h1>credenziali non corrette</h1>
+    <h1>password errata</h1>
 </body>
 </html>

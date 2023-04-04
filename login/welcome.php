@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+$sessionid = $_SESSION['id'];
+echo $sessionid;
+
+/*if($sessionid ==""){
+    header('location: error.php');
+}
+
+*/
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +21,6 @@
     <title>welcome</title>
 </head>
 <body>
-   <h1>login avvenuto con successo</h1>
+   <h1>backoffice@esercizio.com</h1>
 </body>
 </html>
