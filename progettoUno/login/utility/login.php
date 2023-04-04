@@ -33,8 +33,8 @@ $rows = $q->rowCount();               //contiamo righe
 if($row>0){                           //utente esiste
     while ($row=$q->fetch()){
         if($row['password']===$password){
-            //session_start();
-            //$_SESSION['id'] = $row['id'];           //variabile che rimane salvata
+            session_start();
+            $_SESSION['id'] = $row['id'];           //variabile che rimane salvata
 
             header("location: ../welcome.php");
         }else{
@@ -44,7 +44,6 @@ if($row>0){                           //utente esiste
 }else{
     echo "utente non trovato in archivio";
 }
-
 
 
 ?>
