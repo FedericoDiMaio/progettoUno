@@ -26,24 +26,36 @@ $password = $_POST['password'];
 
 
 
-//query
-$q = $db->prepare("SELECT * FROM utente WHERE email = '$email'");
+$q = $db->prepare("SELECT * FROM utente WHERE email = :email");
+$q->bindParam(':email', $email, PDO::PARAM_STR);
 $q->execute();
-$q->setFetchMode(PDO::FETCH_ASSOC);   //fetchiamo e passiamo a rassegna tutte le righe
-$rows = $q->rowCount();               //contiamo righe
-if($rows>0){                          //utente esiste
-    while ($rows=$q->fetch()){
-        if($rows['password']===$password){
-            session_start();
-            $_SESSION['id'] = $rows['id'];
+$q->setFetchMode(PDO::FETCH_ASSOC); // fetchiamo e passiamo a rassegna tutte le righe
+$rows = $q->rowCount(); // contiamo righe
+if ($rows > 0) { // utente esiste
+    while ($row = $q->fetch()) {
+        if ($row['id'] === '1') {
             header("location: ../welcome.php");
-        }else{
+            exit;
+        } else if ($row['id'] === '2') {
+            header("location: ../welcomeuno.php");
+            exit;
+        }else if ($row['id'] === '3') {
+            header("location: ../welcomedue.php");
+            exit;
+        } else if ($row['password'] === $password) {
+            session_start();
+            $_SESSION['id'] = $row['id'];
+            header("location: ../welcome.php");
+            exit;
+        } else {
             header("location: ../error.php");
+            exit;
         }
     }
-}else{
+} else {
     echo "utente non presente in archivio";
 }
+
 
 
 
