@@ -5,23 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  select,
+  input[type="checkbox"] {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  .error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+</style>
+
+
 </head>
 <body>
 
 <?php
-
-/*
-session_start();
-$sessionid = $_SESSION['id'];
-echo $sessionid;
-
-if($sessionid ==""){
-    header('location: error.php');
-}
-*/
-/*------------------------------
-CONNESIONE PDO
--------------------------------*/
 
 
 $servername="localhost";
@@ -50,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
   }
 
-  // perform query to retrieve information about selected workstation
+  // perform query to retrieve information about selected workstation 
+  
   $sql = "SELECT * FROM stazione WHERE id = :id";
   $stmt = $db->prepare($sql);
   $stmt->bindValue(':id', $selected_workstation, PDO::PARAM_INT);
@@ -67,6 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($round_trip) {
     $km_traveled *= 2;
   }
+ 
+
 
   // output selected workstation, direction, round trip and km traveled
   echo 'Selected workstation: ' . htmlspecialchars($workstation_data['nome_stazione']) . '<br>';
@@ -99,6 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '<option value="origin">Origin</option>';
     echo '<option value="destination">Destination</option>';
     echo '</select>';
+    echo '<br>';
     
 
    // perform query to retrieve all workstations
@@ -117,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
     }
     echo '</select>';
+    
 
     
 
@@ -126,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '<option value="origin">Origin</option>';
     echo '<option value="destination">Destination</option>';
     echo '</select>';
+    echo '<br>';
 
     // checkbox for round trip
     echo '<label for="round_trip">Round trip:</label>';
@@ -141,6 +179,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
     </body>
 </html>
-    
-    
-    
