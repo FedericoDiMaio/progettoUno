@@ -13,7 +13,7 @@
 <body>
     <h1>Universita degli studi Guglielmo Marconi</h1>
     <h2>progetti BDC</h2>
-    <a href="http://localhost/progettoUno/addressingmarconi/trainstation/login/index.php">PROGETTO UNO</a>
+    <a href="http://localhost/progettoUno/addressingmarconi/trainstation/landing.php">PROGETTO UNO</a>
     <a href="localhost:8080">PROGETTO DUE</a>
 </body>
 

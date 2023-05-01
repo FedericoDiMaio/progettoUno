@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="login.css">
-    <title>Document</title>
-    
-  </head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="login.css">
+  <title>Document</title>
 
-  <body>
+</head>
 
-<?php
+<body>
 
-$servername="localhost";
-$username="root";
-$password="";
-$dbname="progettouno";
+  <?php
 
-try{
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "progettouno";
+
+  try {
     $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}catch (PDOException $e) {
-    print "ERRORE!: ". $e->getMessage() . "<br>";
+  } catch (PDOException $e) {
+    print "ERRORE!: " . $e->getMessage() . "<br>";
     die();
-}
-
-// check if the form has been submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // retrieve selected workstation, direction and round trip from POST data
-  $selected_workstation = isset($_POST['workstation']) ? intval($_POST['workstation']) : null;
-  $selected_direction = isset($_POST['direction']) ? $_POST['direction'] : null;
-  $round_trip = isset($_POST['round_trip']) && $_POST['round_trip'] == 'yes';
-
-  // validate input
-  if (empty($selected_workstation) || empty($selected_direction)) {
-    echo 'Please select a workstation and direction.';
-    exit;
   }
 
-  // perform query to retrieve information about selected workstation 
-  
-  $sql = "SELECT * FROM stazione WHERE id = :id";
-  $stmt = $db->prepare($sql);
-  $stmt->bindValue(':id', $selected_workstation, PDO::PARAM_INT);
-  $stmt->execute();
+  // verificare se il modulo è stato inviato
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // recuperare la postazione di lavoro selezionata, la direzione e il viaggio di andata e ritorno dai dati POST
+    $selected_workstation = isset($_POST['workstation']) ? intval($_POST['workstation']) : null;
+    $selected_direction = isset($_POST['direction']) ? $_POST['direction'] : null;
+    $round_trip = isset($_POST['round_trip']) && $_POST['round_trip'] == 'yes';
 
-  // retrieve results
-  $workstation_data = $stmt->fetch(PDO::FETCH_ASSOC);
+    // validare i dati inviati
+    if (empty($selected_workstation) || empty($selected_direction)) {
+      echo 'Please select a workstation and a direction';
+      exit;
+    }
 
-  // calculate km traveled based on direction and round trip
-  $km_traveled = $selected_direction == 'origin'
-    ? $workstation_data['km_origine']
-    : $workstation_data['km_destinazione'];
+    // eseguire la query per recuperare i dati della postazione di lavoro selezionata
+    $sql = "SELECT * FROM stazione WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':id', $selected_workstation, PDO::PARAM_INT);
+    $stmt->execute();
 
-  if ($round_trip) {
-    $km_traveled *= 2;
+    // recuperare i dati della postazione di lavoro selezionata
+    $workstation_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // calcolare i km percorsi
+    $km_traveled = $selected_direction == 'origin'
+      ? $workstation_data['km_origine']
+      : $workstation_data['km_destinazione'];
+
+    if ($round_trip) {
+      $km_traveled *= 2;
+    }
+
+
+    // visualizzare i dati
+    echo 'Selected workstation: ' . htmlspecialchars($workstation_data['nome_stazione']) . '<br>';
+    echo 'Selected direction: ' . htmlspecialchars($selected_direction) . '<br>';
+    echo 'Round trip: ' . ($round_trip ? 'Yes' : 'No') . '<br>';
+    echo 'Km traveled: ' . $km_stazione;
+
+  } else {
+
+    // il modulo non è stato inviato, visualizzalo
+    // esegue una query per recuperare tutte le workstation
+    $sql = "SELECT * FROM stazione";
+    $result = $db->query($sql);
   }
-  // redirect to login page
-  header("Location: http://localhost/progettoUno/addressingmarconi/trainstation/prenotazione/prenotazione.php.php");
-  exit;
- 
-  // output selected workstation, direction, round trip and km traveled
-  echo 'Selected workstation: ' . htmlspecialchars($workstation_data['nome_stazione']) . '<br>';
-  echo 'Selected direction: ' . htmlspecialchars($selected_direction) . '<br>';
-  echo 'Round trip: ' . ($round_trip ? 'Yes' : 'No') . '<br>';
-  echo 'Km traveled: ' . $km_stazione;
-
-} else {
-  // form has not been submitted, display it
-  // perform query to retrieve all workstations
-  $sql = "SELECT * FROM stazione";
-  $result = $db->query($sql);
-}
-  // check if any workstations were returned
+  // controllare se sono state restituite postazioni di lavoro
   if ($result->rowCount() > 0) {
-    // create a form with dropdown menus for workstation, origin/destination selection and round trip
+    // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
     echo '<form method="POST">';
 
-    // dropdown menu for workstation selection
+    // menu a discesa per la selezione della postazione di lavoro
     echo '<label for="workstation">Select workstation:</label>';
     echo '<select name="workstation">';
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -86,51 +85,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     echo '</select>';
 
-    // dropdown menu for origin/destination selection
+    // menu a discesa per la selezione dell'origine/destinazione
     echo '<label for="direction">Select direction:</label>';
     echo '<select name="direction">';
     echo '<option value="origin">Origin</option>';
     echo '<option value="destination">Destination</option>';
     echo '</select>';
     echo '<br>';
-    
 
-   // perform query to retrieve all workstations
+
+    // eseguire query per recuperare tutte le workstation
     $sql = "SELECT * FROM stazione";
     $result = $db->query($sql);
 
-    // check if any workstations were returned
+    // controllare se sono state restituite postazioni di lavoro
     if ($result->rowCount() > 0) {
-    // create a form with dropdown menus for workstation, origin/destination selection and round trip
-    echo '<form method="POST">';
+      // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
+      echo '<form method="POST">';
 
-    // dropdown menu for workstation selection
-    echo '<label for="workstation">Select workstation:</label>';
-    echo '<select name="workstation">';
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-  echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
+      // menu a discesa per la selezione della postazione di lavoro
+      echo '<label for="workstation">Select workstation:</label>';
+      echo '<select name="workstation">';
+      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
+      }
+      echo '</select>';
+
+      // menu a discesa per la selezione dell'origine/destinazione
+      echo '<label for="direction">Select direction:</label>';
+      echo '<select name="direction">';
+      echo '<option value="origin">Origin</option>';
+      echo '<option value="destination">Destination</option>';
+      echo '</select>';
+      echo '<br>';
+
+      // casella di controllo per il viaggio di andata e ritorno
+      echo '<label for="round_trip">Round trip:</label>';
+      echo '<input type="checkbox" name="round_trip" value="yes">';
+
+      echo '<input type="submit" value="Submit">';
+      echo '</form>';
+
+    } else {
+      echo "0 results";
     }
-    echo '</select>';
-    
-    // dropdown menu for origin/destination selection
-    echo '<label for="direction">Select direction:</label>';
-    echo '<select name="direction">';
-    echo '<option value="origin">Origin</option>';
-    echo '<option value="destination">Destination</option>';
-    echo '</select>';
-    echo '<br>';
+  }
+  ?>
+</body>
 
-    // checkbox for round trip
-    echo '<label for="round_trip">Round trip:</label>';
-    echo '<input type="checkbox" name="round_trip" value="yes">';
-
-    echo '<input type="submit" value="Submit">';
-    echo '</form>';
-
-} else {
-    echo "0 results";
-    }
-    }
-    ?>
-    </body>
 </html>

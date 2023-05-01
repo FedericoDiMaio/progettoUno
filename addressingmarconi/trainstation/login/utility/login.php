@@ -4,16 +4,16 @@
 CONNESIONE PDO
 -------------------------------*/
 
-$servername="localhost";
-$username="root";
-$password="";
-$dbname="progettouno";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "progettouno";
 
-try{
+try {
     $db = new PDO("mysql:=$servername;dbname=$dbname", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}catch (PDOException $e) {
-    print "ERRORE!: ". $e->getMessage() . "<br>";
+} catch (PDOException $e) {
+    print "ERRORE!: " . $e->getMessage() . "<br>";
     die();
 }
 
@@ -33,22 +33,17 @@ $q->setFetchMode(PDO::FETCH_ASSOC); // fetchiamo e passiamo a rassegna tutte le 
 $rows = $q->rowCount(); // contiamo righe
 if ($rows > 0) { // utente esiste
     while ($row = $q->fetch()) {
-        if ($row['id'] === '1') {
-            header("location: ../../../profilo/registrato.php");
-            exit;
-        } else if ($row['id'] === '2') {
-            header("location: ../profilo/amministrativo.php");
-            exit;
-        }else if ($row['id'] === '3') {
-            header("location: ../profilo/esercizio.php");
-            exit;
-        } else if ($row['password'] === $password) {
-            session_start();
-            $_SESSION['id'] = $row['id'];
+        if ($row['id_utente'] === '1' && $row['password'] === $password) {
             header("location: ../profilo/registrato.php");
             exit;
+        } else if ($row['id_utente'] === '2' && $row['password'] === $password) {
+            header("location: ../profilo/amministrativo.php");
+            exit;
+        } else if ($row['id_utente'] === '3' && $row['password'] === $password) {
+            header("location: ../profilo/esercizio.php");
+            exit;
         } else {
-            header("location: ../login/error.php");
+            header("location: ../error.php");
             exit;
         }
     }
