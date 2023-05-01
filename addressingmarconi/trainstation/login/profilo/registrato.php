@@ -4,57 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="login.css">
     <title>Document</title>
-    <style>
-  form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #ccc;
-  }
+    
+  </head>
 
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  select,
-  input[type="checkbox"] {
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #3e8e41;
-  }
-
-  .error {
-    color: red;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-</style>
-
-
-</head>
-<body>
+  <body>
 
 <?php
-
 
 $servername="localhost";
 $username="root";
@@ -100,9 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($round_trip) {
     $km_traveled *= 2;
   }
+  // redirect to login page
+  header("Location: http://localhost/progettoUno/addressingmarconi/trainstation/prenotazione/prenotazione.php.php");
+  exit;
  
-
-
   // output selected workstation, direction, round trip and km traveled
   echo 'Selected workstation: ' . htmlspecialchars($workstation_data['nome_stazione']) . '<br>';
   echo 'Selected direction: ' . htmlspecialchars($selected_direction) . '<br>';
@@ -154,9 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     echo '</select>';
     
-
-    
-
     // dropdown menu for origin/destination selection
     echo '<label for="direction">Select direction:</label>';
     echo '<select name="direction">';

@@ -34,29 +34,25 @@ $rows = $q->rowCount(); // contiamo righe
 if ($rows > 0) { // utente esiste
     while ($row = $q->fetch()) {
         if ($row['id'] === '1') {
-            header("location: ../welcome.php");
+            header("location: ../../../profilo/registrato.php");
             exit;
         } else if ($row['id'] === '2') {
-            header("location: ../welcomeuno.php");
+            header("location: ../profilo/amministrativo.php");
             exit;
         }else if ($row['id'] === '3') {
-            header("location: ../welcomedue.php");
+            header("location: ../profilo/esercizio.php");
             exit;
         } else if ($row['password'] === $password) {
             session_start();
             $_SESSION['id'] = $row['id'];
-            header("location: ../welcome.php");
+            header("location: ../profilo/registrato.php");
             exit;
         } else {
-            header("location: ../error.php");
+            header("location: ../login/error.php");
             exit;
         }
     }
 } else {
     echo "utente non presente in archivio";
 }
-
-
-
-
 ?>
