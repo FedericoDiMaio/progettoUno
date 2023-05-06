@@ -33,6 +33,14 @@ $q->setFetchMode(PDO::FETCH_ASSOC); // fetchiamo e passiamo a rassegna tutte le 
 $rows = $q->rowCount(); // contiamo righe
 if ($rows > 0) { // utente esiste
     while ($row = $q->fetch()) {
+        
+        // Imposto nella sessione l'id utente
+        $_SESSION["id_utente"] = $row["id_utente"];
+        
+        /*
+         * Altri dettagli dell'utente puoi settarli come `$_SESSION["nome_attributo"] = $row["nome_colonna_tabella_utente"]`
+         */
+        
         if ($row['id_utente'] === '1' && $row['password'] === $password) {
             header("location: ../profilo/registrato.php");
             exit;
