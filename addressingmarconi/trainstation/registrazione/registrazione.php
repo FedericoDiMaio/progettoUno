@@ -9,7 +9,7 @@
     <header>
       <h1>Registrazione utente</h1>
     </header>
-    <form>
+    <form action="../login/utility/saveregistrazione.php" method="POST">
       <div class="form-row">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
@@ -31,6 +31,10 @@
         <input type="text" id="residenza" name="residenza" required>
       </div>
       <div class="form-row">
+        <label for="data_di_nascita">Data di nascita:</label>
+        <input placeholder="yyyy-mm-dd" type="text" id="data_di_nascita" name="data_di_nascita" required>
+      </div>
+      <div class="form-row">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
       </div>
@@ -38,13 +42,7 @@
         <label for="conferma_password">Conferma password:</label>
       <input type="password" id="conferma_password" name="conferma_password" required>
     </div>
-    <div class="form-row">
-      <label for="ruolo">Ruolo:</label>
-      <select id="ruolo" name="ruolo" required>
-        
-        <option value="registrato">registrato</option>
-      </select>
-    </div>
+    
     <div class="form-row">
       <input type="submit" value="Registrati">
     </div>
