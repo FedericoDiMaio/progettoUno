@@ -13,9 +13,13 @@ header {
   justify-content: space-between;
   align-items: center;
 }
-
-h1 {
-  margin: 0;
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+.logoMarconi {
+  width: 200px;
+  height: 70px;
 }
 
 .container {

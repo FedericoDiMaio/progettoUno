@@ -67,7 +67,8 @@
 		<div class="logo">TrainStation</div>
 		<nav>
 			<ul>
-				<li><a href="./login/index.php">login</a></li>
+				<li><a href="./login/login.php">login</a></li>
+        <li><a href="./registrazione/registrazione.php">signup</a></li>
 			</ul>
 		</nav>
 	</header>

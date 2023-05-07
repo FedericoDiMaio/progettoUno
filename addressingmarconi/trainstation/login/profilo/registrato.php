@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="login.css">
-  <title>Document</title>
-
+	<title>TrainStation</title>
+    <link rel="stylesheet" type="text/css" href="./registrato.css">
 </head>
-
 <body>
 
-  <?php
+<?php
+
 
   $servername = "localhost";
   $username = "root";
@@ -65,72 +60,75 @@
     echo 'Round trip: ' . ($round_trip ? 'Yes' : 'No') . '<br>';
     echo 'Km traveled: ' . $km_stazione;
 
-  } else {
-
-    // il modulo non è stato inviato, visualizzalo
-    // esegue una query per recuperare tutte le workstation
-    $sql = "SELECT * FROM stazione";
-    $result = $db->query($sql);
-  }
-  // controllare se sono state restituite postazioni di lavoro
-  if ($result->rowCount() > 0) {
-    // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
-    echo '<form method="POST">';
-
-    // menu a discesa per la selezione della postazione di lavoro
-    echo '<label for="workstation">Select workstation:</label>';
-    echo '<select name="workstation">';
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-      echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
-    }
-    echo '</select>';
-
-    // menu a discesa per la selezione dell'origine/destinazione
-    echo '<label for="direction">Select direction:</label>';
-    echo '<select name="direction">';
-    echo '<option value="origin">Origin</option>';
-    echo '<option value="destination">Destination</option>';
-    echo '</select>';
-    echo '<br>';
-
-
-    // eseguire query per recuperare tutte le workstation
-    $sql = "SELECT * FROM stazione";
-    $result = $db->query($sql);
-
-    // controllare se sono state restituite postazioni di lavoro
-    if ($result->rowCount() > 0) {
-      // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
-      echo '<form method="POST">';
-
-      // menu a discesa per la selezione della postazione di lavoro
-      echo '<label for="workstation">Select workstation:</label>';
-      echo '<select name="workstation">';
-      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
-      }
-      echo '</select>';
-
-      // menu a discesa per la selezione dell'origine/destinazione
-      echo '<label for="direction">Select direction:</label>';
-      echo '<select name="direction">';
-      echo '<option value="origin">Origin</option>';
-      echo '<option value="destination">Destination</option>';
-      echo '</select>';
-      echo '<br>';
-
-      // casella di controllo per il viaggio di andata e ritorno
-      echo '<label for="round_trip">Round trip:</label>';
-      echo '<input type="checkbox" name="round_trip" value="yes">';
-
-      echo '<input type="submit" value="Submit">';
-      echo '</form>';
-
-    } else {
-      echo "0 results";
-    }
   }
   ?>
-</body>
 
+	<header>
+    
+		<div class="logo">TrainStation</div>
+		<nav>
+			<ul>
+				<li><a href="../out.php">logout</a></li>
+        </ul>
+		</nav>
+	</header>
+    <?php
+    session_start();
+    $nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : '';
+    $cognome = isset($_SESSION['cognome']) ? $_SESSION['cognome'] : '';
+    ?>
+  <h1>Benvenuto <?php echo $nome . ' ' . $cognome; ?></h1>
+    <form>
+  <div class="form-group">
+    <label for="departure">Stazione di partenza</label>
+    <?php 
+           $sql = "SELECT * FROM stazione";
+           $result = $db->query($sql);
+       
+           // controllare se sono state restituite postazioni di lavoro
+           if ($result->rowCount() > 0) {
+             // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
+             echo '<form method="POST">';
+       
+             echo '<select name="workstation">';
+             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+               echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
+             }
+             echo '</select>';
+            }
+        ?>
+  </div>
+  <div class="form-group">
+    <label for="destination">Stazione di destinazione</label>
+    <?php 
+           $sql = "SELECT * FROM stazione";
+           $result = $db->query($sql);
+       
+           // controllare se sono state restituite postazioni di lavoro
+           if ($result->rowCount() > 0) {
+             // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
+             echo '<form method="POST">';
+       
+             echo '<select name="workstation">';
+             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+               echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
+             }
+             echo '</select>';
+            }
+        ?>
+  </div>
+  <div class="form-group">
+    <label for="depart-date">Data di partenza</label>
+    <input type="date" id="depart-date" name="depart-date" required>
+  </div>
+  <div class="form-group">
+    <label for="return-date">Data di ritorno</label>
+    <input type="date" id="return-date" name="return-date" required>
+  </div>
+  <button type="submit">Cerca treni</button>
+</form>
+
+</body>
 </html>
+
+        
