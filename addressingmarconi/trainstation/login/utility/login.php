@@ -41,13 +41,13 @@ if ($rows > 0) { // utente esiste
          * Altri dettagli dell'utente puoi settarli come `$_SESSION["nome_attributo"] = $row["nome_colonna_tabella_utente"]`
          */
         
-        if ($row['id_utente'] === '1' && $row['password'] === $password) {
+        if ($row['ruolo'] === 'ruolo' && $row['password'] === $password) {
             header("location: ../profilo/registrato.php");
             exit;
-        } else if ($row['id_utente'] === '2' && $row['password'] === $password) {
+        } else if ($row['ruolo'] === 'ruolo' && $row['password'] === $password) {
             header("location: ../profilo/amministrativo.php");
             exit;
-        } else if ($row['id_utente'] === '3' && $row['password'] === $password) {
+        } else if ($row['ruolo'] === 'ruolo' && $row['password'] === $password) {
             header("location: ../profilo/esercizio.php");
             exit;
         } else {

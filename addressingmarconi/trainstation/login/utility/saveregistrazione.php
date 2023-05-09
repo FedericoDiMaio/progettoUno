@@ -18,7 +18,7 @@ try {
 }
 
 /*------------------------------
-REGISTRAZIONE UTENTE
+REGISTRAZIONE UTENTE DA PAGINA DI REGISTRAZIONE
 -------------------------------*/
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

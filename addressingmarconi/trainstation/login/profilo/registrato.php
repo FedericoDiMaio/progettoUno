@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<?php
+
+ <?php
 
 
   $servername = "localhost";
@@ -127,8 +128,20 @@
   </div>
   <button type="submit">Cerca treni</button>
 </form>
+          
+<div class="card">
+  <div class="card-image">
+  </div>
+  <div class="card-content">
+    <h2 class="card-title">Prenota i tuoi biglietti online</h2>
+    <p class="card-description">Scegli il tuo evento preferito e prenota i tuoi biglietti comodamente da casa. Risparmia tempo e non perdere l'occasione di assistere al tuo evento preferito.</p>
+    <a href="#" class="btn btn-primary">Prenota ora</a>
+  </div>
+</div>
+
+
 
 </body>
 </html>
 
-        
+
