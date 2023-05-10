@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $query->execute();
         header("location: ../../registrazione/registrazione-succ.php");
+        exit();
     } catch (PDOException $e) {
         header("location: ../../registrazione/registrazione-err.php");
+        exit();
     }
 }
 

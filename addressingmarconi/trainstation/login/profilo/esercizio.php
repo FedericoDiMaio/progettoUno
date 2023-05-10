@@ -6,7 +6,7 @@
   </head>
 
   <body>
-
+  
     <?php
       $servername = "localhost";
       $username = "root";
@@ -20,35 +20,36 @@
         print "ERRORE!: " . $e->getMessage() . "<br>";
         die();
       }
+      
+      
+      session_start();
+      $nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : '';
+      $cognome = isset($_SESSION['cognome']) ? $_SESSION['cognome'] : '';
+    
 
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nome_carrozza = isset($_POST['nome_carrozza']) ? ($_POST['nome_carrozza']) : null;
         $nome_locomotiva = isset($_POST['nome_locomotiva']) ? $_POST['nome_locomotiva'] : null;
         
        
         if (empty($nome_carrozza) || empty($nome_locomotiva)) {
-          echo 'Please select carrozza, locomotiva and posti_a_sedere!';
+          echo 'Please select carrozza, locomotiva ';
           exit;
         }
-
-        $sql = "SELECT * FROM carrozza WHERE id = :id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindValue(':id', $nome_carrozza, PDO::PARAM_INT);
-        $stmt->execute();
-        $nome_carrozza = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $sql = "SELECT * FROM locomotiva WHERE id = :id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindValue(':id', $nome_locomotiva, PDO::PARAM_INT);
-        $stmt->execute();
-        $nome_locomotiva = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        echo 'carrozza: ' . htmlspecialchars($nome_carrozza['nome_carrozza']) . '<br>';
-        echo 'locomotiva: ' . htmlspecialchars($nome_locomotiva['nome_locomotiva']) . '<br>';
-        
         
       }
+
+
+      function consoleLog($data) {
+        $output = json_encode($data);
+        echo "<script>console.log('{$output}' );</script>";
+      }
+    
+      
     ?>
+
+
+
 
     <header>
 
@@ -66,11 +67,7 @@
 
     </header>
 
-    <?php
-      session_start();
-      $nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : '';
-      $cognome = isset($_SESSION['cognome']) ? $_SESSION['cognome'] : '';
-    ?>
+  
 
     <h1>Benvenuto <?php echo $nome . ' ' . $cognome; ?></h1>
     <h3>componi i convogli a partire dal materiale rotabile disponibile</h3>
@@ -106,13 +103,15 @@
              echo '</select>';
             }
         ?>
-
+      
 
       </div>
   
-      <button type="submit">Componi treno</button>
+      <button type="submit" onclick="consoleLog('prova')" >Componi treno</button>
     </form>
   </body>
 </html>
+
+
 
 

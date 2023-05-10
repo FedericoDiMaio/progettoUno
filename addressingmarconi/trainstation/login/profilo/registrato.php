@@ -35,32 +35,6 @@
       echo 'Please select a workstation and a direction';
       exit;
     }
-
-    // eseguire la query per recuperare i dati della postazione di lavoro selezionata
-    $sql = "SELECT * FROM stazione WHERE id = :id";
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':id', $selected_workstation, PDO::PARAM_INT);
-    $stmt->execute();
-
-    // recuperare i dati della postazione di lavoro selezionata
-    $workstation_data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // calcolare i km percorsi
-    $km_traveled = $selected_direction == 'origin'
-      ? $workstation_data['km_origine']
-      : $workstation_data['km_destinazione'];
-
-    if ($round_trip) {
-      $km_traveled *= 2;
-    }
-
-
-    // visualizzare i dati
-    echo 'Selected workstation: ' . htmlspecialchars($workstation_data['nome_stazione']) . '<br>';
-    echo 'Selected direction: ' . htmlspecialchars($selected_direction) . '<br>';
-    echo 'Round trip: ' . ($round_trip ? 'Yes' : 'No') . '<br>';
-    echo 'Km traveled: ' . $km_stazione;
-
   }
   ?>
 
