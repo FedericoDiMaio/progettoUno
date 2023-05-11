@@ -20,7 +20,7 @@ try {
 /*------------------------------
 LOGIN 
 -------------------------------*/
-
+session_start();
 $email = $_POST['email'];
 $password = $_POST['password'];
 
@@ -36,8 +36,8 @@ $rows = $q->rowCount(); // contiamo righe
 if ($rows > 0) { // utente esiste
     while ($row = $q->fetch()) {
     
-        $_SESSION['nome'] = $row['nome'];
-        $_SESSION['cognome'] = $row['cognome'];
+        $_SESSION["nome"] = $row["nome"];
+        $_SESSION["cognome"] = $row["cognome"];
 
         if ($row['ruolo'] === 'registrato' && $row['password'] === $password) {
             header("location: ../profilo/registrato.php");

@@ -102,6 +102,7 @@ button[type="submit"]:hover {
 }
 
 .card {
+  height: 100px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -130,8 +131,9 @@ button[type="submit"]:hover {
 }
 
 .card-title {
-  font-size: 24px;
+  font-size: 15px;
   margin-bottom: 10px;
+  padding: 10;
 }
 
 .card-description {
@@ -141,12 +143,12 @@ button[type="submit"]:hover {
 
 .btn {
   background-color: #007bff;
-  border: none;
+  border: 1px solid black;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  font-size: 16px;
-  padding: 10px 20px;
+  font-size: 12px;
+  padding: 8px 10px;
   text-align: center;
   text-decoration: none;
   transition: background-color 0.3s ease-in-out;
@@ -168,15 +170,30 @@ select {
   margin: 10px;
 }
 button {
-  margin: 10px;
+  margin: 100px;
   padding: 10px;
   border-radius: 5px;
   border: none;
   background-color: #007bff;
   color: white;
-  font-size: 16px;
+  font-size: 1px;
   cursor: pointer;
 }
 button:hover {
   background-color: #0062cc;
+}
+
+.card-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.card-title-container h2 {
+  margin: 0;
+}
+
+.card-value {
+  font-size: 18px;
 }

@@ -1,65 +1,59 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-	  <title>TrainStation profilo esercizio</title>
-  </head>
+    <head>
+      <title>TrainStation profilo esercizio</title>
+    </head>
 
-  <body>
-  
-    <?php
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-      $dbname = "progettouno";
+    <body>
 
-      try {
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      } catch (PDOException $e) {
-        print "ERRORE!: " . $e->getMessage() . "<br>";
-        die();
-      }
-      
-      
-      session_start();
-      $nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : '';
-      $cognome = isset($_SESSION['cognome']) ? $_SESSION['cognome'] : '';
+      <?php
 
-      //$sql = "SELECT * FROM treno";
-      //$result = $db->query($sql);
-      
-    //   while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    //       echo "id_treno: " . $row['id_treno'] . "<br>";
-    //       echo "nome_locomotiva: " . $row['nome_locomotiva'] . "<br>";
-    //       echo "nome_carrozza: " . $row['nome_carrozza'] . "<br>";
-          
-          
-    //   }
-      
-    ?>
+        session_start();
+        
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "progettouno";
 
+        try {
+          $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+          $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+          print "ERRORE!: " . $e->getMessage() . "<br>";
+          die();
+        }
+        
+        $nome = isset($_SESSION["nome"]) ? $_SESSION["nome"] : '';
+        $cognome = isset($_SESSION["cognome"]) ? $_SESSION["cognome"] : '';
 
-
+        
+      ?>
 
     <header>
 
-      <div>
-        <link rel="stylesheet" type="text/css" href="./eserciziocomposizione.css">
-      </div>
+        <div>
+            <link rel="stylesheet" type="text/css" href="./eserciziocomposizione.css">
+        </div>
 
-	    <div class="logo">backoffice di esercizio</div>
+        <div class="logo">backoffice di esercizio</div>
 
-      <nav>
-        <ul>
-				<li><a href="../out.php">logout</a></li>
-        </ul>
-      </nav>
+        <nav>
+            <ul>
+                <li><a href="../../trainstation/login/out.php">logout</a></li>
+            </ul>
+        </nav>
+
+        <nav>
+            <ul>
+                <li><a href="../../trainstation/login/profilo/esercizio.php">componi</a></li>
+            </ul>
+        </nav>
 
     </header>
 
     <h1>Benvenuto <?php echo $nome . ' ' . $cognome; ?></h1>
-    <h3>i treni composti sono : </h3>
+    <h3>i treni disponibili nei giorni feriali sono : </h3>
 
     <?php
 
@@ -70,11 +64,13 @@
           while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
                   echo '<div class="card">';
-                  echo '<div class="card-image">';
-                  echo '</div>';
                   echo '<div class="card-content">';
                     // Mostra i valori ottenuti nel codice HTML
-                  echo '<h2 class="card-title">id treno: ' . $row['id_treno'] .'</h2>';
+                  echo '<div class="card-title-container">';
+                  echo '<h2 class="card-title">treno: ' . $row['id_treno'] .'</h2>';
+                  echo '<h2 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h2>';
+                  echo '<h2 class="card-title">carrozza: ' . $row['nome_carrozza'] .'</h2>';
+                  echo '</div>';
                   echo '<p class="card-description"></p>';
                   echo '<p class="card-description"></p>';
                   echo '<a href="#" class="btn btn-primary">modifica</a>';
@@ -83,9 +79,7 @@
           }
          }
     ?>
+
   </body>
+
 </html>
-
-
-
-

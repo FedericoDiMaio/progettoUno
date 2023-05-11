@@ -3,34 +3,32 @@
 
 <head>
     <title>TrainStation Marconi</title>
-    <link rel="stylesheet" type="text/css" href="./landing.css">
+    <link rel="stylesheet" type="text/css" href="./landingview.css">
 </head>
 
 <body>
 
-  <?php
+    <?php
+        session_start();
 
-    session_start();
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "progettouno";
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "progettouno";
+        try {
+        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+        print "ERRORE!: " . $e->getMessage() . "<br>";
+        die();
+        }
 
-    try {
-      $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-      print "ERRORE!: " . $e->getMessage() . "<br>";
-      die();
-    }
-
-    
-  ?>
+    ?>
 
     <header>
 
-      <div class="logo">TrainStation Marconi </div>
+      <div class="logo">TrainStation marconi </div>
         <nav>
             <ul>
 
@@ -104,6 +102,31 @@
         </nav>
 
     </form>
+
+    <?php
+
+        // Esegui la query per ottenere i valori desiderati
+        $sql = "SELECT * FROM treno";
+        $result = $db->query($sql);
+        if ($result->rowCount() > 0) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            echo '<div class="card">';
+            echo '<div class="card-content">';
+            // Mostra i valori ottenuti nel codice HTML
+            echo '<div class="card-title-container">';
+            echo '<h2 class="card-title">treno: ' . $row['id_treno'] .'</h2>';
+            echo '<h2 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h2>';
+            echo '<h2 class="card-title">carrozza: ' . $row['nome_carrozza'] .'</h2>';
+            echo '</div>';
+            echo '<p class="card-description"></p>';
+            echo '<p class="card-description"></p>';
+            echo '<a href="#" class="btn btn-primary">modifica</a>';
+            echo '</div>';
+            echo '</div>';
+            }
+        }
+    ?>
 
 </body>
 
