@@ -4,6 +4,7 @@
 <head>
     <title>TrainStation Marconi</title>
     <link rel="stylesheet" type="text/css" href="./landingview.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
 
     <header>
 
-      <div class="logo">TrainStation marconi </div>
+      <div class="logo">TrainStation Marconi </div>
         <nav>
             <ul>
 
@@ -54,7 +55,7 @@
              // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
              echo '<form method="POST">';
        
-             echo '<select name="workstation">';
+             echo '<select name="workstation" class="select-partenza">';
              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
              }
@@ -75,7 +76,7 @@
              // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
              echo '<form method="POST">';
        
-             echo '<select name="workstation">';
+             echo '<select name="workstation" class="select-destinazione">';
              while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                echo '<option value="' . intval($row["id"]) . '">' . htmlspecialchars($row["nome_stazione"]) . '</option>';
              }
@@ -95,38 +96,41 @@
             <input type="date" id="return-date" name="return-date" required>
         </div>
 
-        <nav>
-            <ul>
-                <li><a href="../trainstation/landingview.php">Cerca treni</a></li>
-            </ul>
-        </nav>
+        <div class="cerca-container">
+            <a href="./landingview.php"><button type="button" class="btn btn-primary cerca-treni">Cerca treni</button><a>
+        </div>
 
     </form>
 
-    <?php
+    <div class="card-container">
 
-        // Esegui la query per ottenere i valori desiderati
-        $sql = "SELECT * FROM treno";
-        $result = $db->query($sql);
-        if ($result->rowCount() > 0) {
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      <?php
 
-            echo '<div class="card">';
-            echo '<div class="card-content">';
-            // Mostra i valori ottenuti nel codice HTML
-            echo '<div class="card-title-container">';
-            echo '<h2 class="card-title">treno: ' . $row['id_treno'] .'</h2>';
-            echo '<h2 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h2>';
-            echo '<h2 class="card-title">carrozza: ' . $row['nome_carrozza'] .'</h2>';
-            echo '</div>';
-            echo '<p class="card-description"></p>';
-            echo '<p class="card-description"></p>';
-            echo '<a href="#" class="btn btn-primary">modifica</a>';
-            echo '</div>';
-            echo '</div>';
-            }
-        }
-    ?>
+          // Esegui la query per ottenere i valori desiderati
+          $sql = "SELECT * FROM treno";
+          $result = $db->query($sql);
+          if ($result->rowCount() > 0) {
+          while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
+
+            // Mostra i valori ottenuti nelle card
+              echo '<div class="card">';    
+              echo '<div class="card-body">';
+              echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
+              echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
+              echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
+              echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+              echo '</div>';
+              echo '</div>';
+              }
+
+            
+          }
+      ?>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 </body>
 

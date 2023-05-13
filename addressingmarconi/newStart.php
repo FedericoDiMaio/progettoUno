@@ -6,9 +6,11 @@
 </head>
 <body>
 	<header>
-	<h1>Di Maio Federico</h1>
-	<h3>0023199</h3>
-		
+		<div>
+			<h1>Di Maio Federico</h1>
+			<h3>0023199</h3>
+		</div>
+
 		<div class="logoContainer">
 		<img aria-hidden="true" class="logoMarconi" alt="Logo ateneo" src="./img/logo.png">
 		

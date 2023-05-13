@@ -4,6 +4,7 @@
 <head>
     <title>TrainStation</title>
     <link rel="stylesheet" type="text/css" href="./registrato.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
 <body>
@@ -112,7 +113,7 @@
             <label for="return-date">Data di ritorno</label>
             <input type="date" id="return-date" name="return-date" required>
         </div>
-        <button type="submit">Cerca treni</button>
+        <a href="#"><button type="button" class="btn btn-primary">Cerca treni</button><a>
     </form>
 
     <?php
@@ -120,34 +121,22 @@
     $result = $db->query($sql);
     if ($result->rowCount() > 0) {
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            echo '<div class="card">';
-            echo '<div class="card-image"></div>';
-            echo '<div class="card-content">';
-            echo '<div class="card-title-container">';
-            echo '<div class="card-value">';
-            echo '<h2 class="card-title">Treno:</h2>';
-            echo '<p>' . $row['id_treno'] .'</p>';
-            echo '</div>';
-            echo '<div class="card-value">';
-            echo '<h2 class="card-title">Locomotiva:</h2>';
-            echo '<p>' . $row['nome_locomotiva'] .'</p>';
-            echo '</div>';
-            echo '<div class="card-value">';
-            echo '<h2 class="card-title">Carrozza:</h2>';
-            echo '<p>' . $row['nome_carrozza'] .'</p>';
+            // Mostra i valori ottenuti nelle card
+            echo '<div class="card">';    
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
+            echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
+            echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
+            echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
             echo '</div>';
             echo '</div>';
-            echo '<h2 class="card-title">Prenota i tuoi biglietti online</h2>';
-            
-            echo '<a href="#" class="btn btn-primary">Prenota ora</a>';
-            echo '</div>';
-            echo '</div>';
+            }
         }
-    }
+    
 ?>
 
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   </body>
 
 </html>

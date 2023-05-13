@@ -41,24 +41,6 @@ nav ul li a:hover {
   color: #379975;
 }
 
-.button {
-  background-color: #379975;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.button:hover {
-  background-color: #fff;
-  color: #379975;
-}
-
 /* form scelta andata e ritorno */
 
 form {
@@ -87,72 +69,45 @@ input[type="date"] {
   box-shadow: 1px 1px 2px grey;
 }
 
-button[type="submit"] {
-  padding: 5px 10px;
-  background-color: #0070c0;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px grey;
-  cursor: pointer;
+form {
+  display: flex;
+  align-items: center;
+}
+label {
+  margin: 10px;
+}
+select {
+  margin: 10px;
 }
 
-button[type="submit"]:hover {
-  background-color: #004080;
+.card-container {
+  margin-top: 50px;
 }
 
 .card {
-  height: 100px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  margin-bottom: 2%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.prenota {
+  margin-top: 10px;
+  font-size: 14px;
 }
 
-.card-image {
-  height: 10px;
-  overflow: hidden;
-  position: relative;
+.card-text {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.card-image img {
-  height: 10%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.cerca-container {
+  margin-top: 44px;
 }
 
-.card-content {
-  padding: 20px;
+.select-destinazione {
+  height: 34px;
 }
 
-.card-title {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.card-description {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.btn {
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.btn:hover {
-  background-color: #0069d9;
+.select-partenza {
+  height: 34px;
 }

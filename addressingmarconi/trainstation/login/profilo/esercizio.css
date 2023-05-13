@@ -70,7 +70,7 @@ form {
 
 .form-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 10px;
 }
 
@@ -99,84 +99,4 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #004080;
-}
-
-.card {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.card-image {
-  height: 150px;
-  overflow: hidden;
-  position: relative;
-}
-
-.card-image img {
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.card-content {
-  padding: 20px;
-}
-
-.card-title {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.card-description {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.btn {
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.btn:hover {
-  background-color: #0069d9;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-label {
-  margin: 10px;
-}
-select {
-  margin: 10px;
-}
-button {
-  margin: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #0062cc;
 }

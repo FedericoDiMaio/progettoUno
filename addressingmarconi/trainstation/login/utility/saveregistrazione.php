@@ -22,7 +22,6 @@ REGISTRAZIONE UTENTE DA PAGINA DI REGISTRAZIONE
 -------------------------------*/
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
 
     $nome = $_POST['nome'];
     $cognome = $_POST['cognome'];
@@ -31,6 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data_di_nascita = $_POST['data_di_nascita'];
     $residenza = $_POST['residenza'];
     $telefono = $_POST['telefono'];
+
+    if (!empty($data_di_nascita)) {
+        if (!validateDate($data_di_nascita)) {
+            header("location: ../../login/errordata.php");
+            exit();
+        }
+    } else {
+        echo "<p>Il campo della data di nascita è obbligatorio</p>";
+        exit();
+    }
 
     $query = $db->prepare("INSERT INTO utente (nome, cognome, email, password, data_di_nascita, residenza, telefono) VALUES (:nome, :cognome, :email, :password, :data_di_nascita, :residenza, :telefono)");
     $query->bindParam(':nome', $nome, PDO::PARAM_STR);
@@ -51,4 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+function validateDate($data) {
+    $patternData = "/^\d{4}-\d{2}-\d{2}$/";
+    return preg_match($patternData, $data) && strtotime($data);
+}
 ?>
