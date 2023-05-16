@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <title>TrainStation Marconi</title>
     <link rel="stylesheet" type="text/css" href="./landingview.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-</head>
+  </head>
 
-<body>
+    <body>
 
-    <?php
+      <?php
+
         session_start();
-
+        $andata=  isset($_SESSION["andata"]);
+        $ritorno = isset($_SESSION["ritorno"]);
+          
         $servername = "localhost";
         $username = "root";
         $password = "";
         $dbname = "progettouno";
 
         try {
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-        print "ERRORE!: " . $e->getMessage() . "<br>";
-        die();
+          $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+          $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          } catch (PDOException $e) {
+          print "ERRORE!: " . $e->getMessage() . "<br>";
+          die();
         }
 
-    ?>
+      ?>
 
     <header>
 
@@ -47,12 +50,12 @@
         <label for="departure">Stazione di partenza</label>
 
         <?php 
-           $sql = "SELECT * FROM stazione";
-           $result = $db->query($sql);
+          $sql = "SELECT * FROM stazione";
+          $result = $db->query($sql);
        
-           // controllare se sono state restituite postazioni di lavoro
+           // controllare se sono state restituite stazioni
            if ($result->rowCount() > 0) {
-             // creare un modulo con menu a tendina per postazione di lavoro, selezione origine/destinazione e andata e ritorno
+             // creare un modulo con menu a tendina per stazioni
              echo '<form method="POST">';
        
              echo '<select name="workstation" class="select-partenza">';
@@ -67,7 +70,7 @@
       <div class="form-group">
         <label for="destination">Stazione di destinazione</label>
 
-        <?php 
+          <?php 
            $sql = "SELECT * FROM stazione";
            $result = $db->query($sql);
        
@@ -82,7 +85,7 @@
              }
              echo '</select>';
             }
-        ?>
+          ?>
         
       </div>
 
@@ -104,33 +107,40 @@
 
     <div class="card-container">
 
-      <?php
-
-          // Esegui la query per ottenere i valori desiderati
-          $sql = "SELECT * FROM treno";
-          $result = $db->query($sql);
-          if ($result->rowCount() > 0) {
-          while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
 
-            // Mostra i valori ottenuti nelle card
-              echo '<div class="card">';    
-              echo '<div class="card-body">';
-              echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
-              echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
-              echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
-              echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
-              echo '</div>';
-              echo '</div>';
-              }
 
+  <?php
+    $sql = "SELECT * FROM treno";
+    $result = $db->query($sql);
+    echo $andata;
+    echo $ritorno;
             
-          }
-      ?>
+
+    //  if ($result->rowCount() > 0) {
+
+    //    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    //      if ($andata == $row['tipologia']) {
+    //        echo '<div class="card">';    
+    //        echo '<div class="card-body">';
+    //        echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
+    //        echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
+    //        echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
+    //        echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
+    //        echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+    //        echo '</div>';
+    //        echo '</div>';
+    //      }else{
+    //        echo "No";
+    //      }
+    //    }
+    // }
+
+  ?>
 
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 </body>
 

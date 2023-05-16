@@ -55,7 +55,7 @@
          if ($result->rowCount() > 0) {
           while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                 // Mostra i valori ottenuti nelle card
+            // Mostra i valori ottenuti nelle card
             echo '<div class="card">';    
             echo '<div class="card-body">';
             echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
