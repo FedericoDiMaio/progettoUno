@@ -102,11 +102,61 @@
                 ?>
 
           </div>
+
+          <div class="form-group">
+              <label for="nome_carrozza_uno">carrozza</label>
+              
+            
+                <?php 
+                    $sql = "SELECT * FROM carrozza";
+                    $result = $db->query($sql);
+
+                    if ($result->rowCount() > 0) {
+
+                        echo '<form method="POST">';
+                        echo '<select name="nome_carrozza_uno">';
+
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                          echo '<option value="' . ($row["nome_carrozza"]) . '">' . htmlspecialchars($row["nome_carrozza"]) . '</option>';
+                        }
+
+                      echo '</select>';
+
+                    }
+                    
+                ?>
+
+          </div>
+
+
+          <div class="form-group">
+              <label for="nome_carrozza_due">carrozza</label>
+              
+            
+                <?php 
+                    $sql = "SELECT * FROM carrozza";
+                    $result = $db->query($sql);
+
+                    if ($result->rowCount() > 0) {
+
+                        echo '<form method="POST">';
+                        echo '<select name="nome_carrozza_due">';
+
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                          echo '<option value="' . ($row["nome_carrozza"]) . '">' . htmlspecialchars($row["nome_carrozza"]) . '</option>';
+                        }
+
+                      echo '</select>';
+
+                    }
+                    
+                ?>
+
+          </div>
               
             <div class="form-group">
                 <label for="depart-date">Data </label>
                 <input type="date" id="depart-date" name="tipologia" required>
-                
             </div>
 
             

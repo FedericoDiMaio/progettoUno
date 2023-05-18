@@ -27,9 +27,7 @@
 
     echo $_SESSION["andata"];
     echo $_SESSION["ritorno"];
-
-    //header("location: ../../landingview.php");
-
+   
 
     function isHolidayOrWeekend($date) {
         // Array di date festive
@@ -62,7 +60,7 @@
             // Aggiungi altre date festive se necessario
         );
 
-              // Verifica se la data selezionata è un giorno festivo
+    // Verifica se la data selezionata è un giorno festivo
     if (in_array($date, $holidays)) {
         return true;
     }
@@ -82,5 +80,6 @@
     return false;
     }
 
+    header("location: ../../landingview.php");
 
 ?>

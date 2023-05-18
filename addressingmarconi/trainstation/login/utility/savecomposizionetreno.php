@@ -25,6 +25,8 @@
         
 
         $nome_carrozza = $_POST['nome_carrozza'];
+        $nome_carrozza_uno = $_POST['nome_carrozza_uno'];
+        $nome_carrozza_due = $_POST['nome_carrozza_due'];
         $nome_locomotiva = $_POST['nome_locomotiva'];
         $tipologia = isset($_POST['tipologia']) ? $_POST['tipologia'] : '';
         $check_date =  isHolidayOrWeekend($tipologia);
@@ -32,8 +34,10 @@
         
 
         
-        $query = $db->prepare("INSERT INTO treno (nome_carrozza, nome_locomotiva, tipologia) VALUES ( :nome_carrozza, :nome_locomotiva, :check_date)");
+        $query = $db->prepare("INSERT INTO treno (nome_carrozza, nome_carrozza_uno, nome_carrozza_due, nome_locomotiva, tipologia) VALUES ( :nome_carrozza, :nome_carrozza_uno, :nome_carrozza_due, :nome_locomotiva, :check_date)");
         $query->bindParam(':nome_carrozza', $nome_carrozza, PDO::PARAM_STR);
+        $query->bindParam(':nome_carrozza_uno', $nome_carrozza_uno, PDO::PARAM_STR);
+        $query->bindParam(':nome_carrozza_due', $nome_carrozza_due, PDO::PARAM_STR);
         $query->bindParam(':nome_locomotiva', $nome_locomotiva, PDO::PARAM_STR);
         $query->bindParam(':check_date', $check_date, PDO::PARAM_STR);
         

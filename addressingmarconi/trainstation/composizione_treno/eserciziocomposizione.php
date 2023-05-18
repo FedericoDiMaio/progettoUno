@@ -47,7 +47,11 @@
     <h1>Benvenuto <?php echo $nome . ' ' . $cognome; ?></h1>
     <h3>i treni disponibili nei giorni feriali sono : </h3>
 
+    
+
     <?php
+
+    
 
          // Esegui la query per ottenere i valori desiderati
          $sql = "SELECT * FROM treno";
@@ -60,14 +64,32 @@
             echo '<div class="card-body">';
             echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
             echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
+            echo '<p class="card-text">carrozza: ' . $row['nome_carrozza_uno'] .'</p>';
+            echo '<p class="card-text">carrozza: ' . $row['nome_carrozza_due'] .'</p>';
+            echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
             echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
-            echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+
+            // form per modificare
+            // echo '<form action="../login/utility/editcomposizionetreno.php" method="POST">';
+            // echo '<input type="hidden" name="id_treno" value="' . $row['id_treno'] . '">';
+            // echo '<button type="submit" class="btn btn-primary">Modifica</button>';
+            // echo '</form>';
+
+            // form per cancellare
+            echo '<form action="../login/utility/deletecomposizionetreno.php" method="POST">';
+            echo '<input type="hidden" name="id_treno" value="' . $row['id_treno'] . '">';
+            echo '<button type="submit" class="btn btn-primary">cancella</button>';
+            echo '</form>';
+            
             echo '</div>';
             echo '</div>';
             }
           }
          
+     
+          
     ?>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   </body>

@@ -117,24 +117,35 @@
     echo $ritorno;
             
 
-    //  if ($result->rowCount() > 0) {
+     if ($result->rowCount() > 0) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        if ($andata == 1 || $ritorno == 1) {
+           echo '<div class="card">';    
+           echo '<div class="card-body">';
+           echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
+           echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
+           echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
+           echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
+           echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+           echo '</div>';
+           echo '</div>';
+        }else if (empty($andata) || empty($ritorno)) { 
+           echo 'treni feriali';
+           echo '<div class="card">';    
+           echo '<div class="card-body">';
+           echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
+           echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
+           echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
+           echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
+           echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+           echo '</div>';
+           echo '</div>';
+        }
+      }
+    }
+    
 
-    //    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    //      if ($andata == $row['tipologia']) {
-    //        echo '<div class="card">';    
-    //        echo '<div class="card-body">';
-    //        echo '<h5 class="card-title">locomotiva: ' . $row['nome_locomotiva'] .'</h5>';
-    //        echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
-    //        echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
-    //        echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
-    //        echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
-    //        echo '</div>';
-    //        echo '</div>';
-    //      }else{
-    //        echo "No";
-    //      }
-    //    }
-    // }
+  
 
   ?>
 
