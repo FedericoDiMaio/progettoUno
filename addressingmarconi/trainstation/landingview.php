@@ -14,6 +14,8 @@
         session_start();
         $andata=  isset($_SESSION["andata"]);
         $ritorno = isset($_SESSION["ritorno"]);
+        $nome = isset($_SESSION["nome"]);
+        $cognome = isset($_SESSION["cognome"]);
           
         $servername = "localhost";
         $username = "root";
@@ -100,7 +102,7 @@
         </div>
 
         <div class="cerca-container">
-            <a href="./landingview.php"><button type="button" class="btn btn-primary cerca-treni">Cerca treni</button><a>
+            <a href="./landingview.php"><button type="button" class="btn btn-primary ">Cerca treni</button><a>
         </div>
 
     </form>
@@ -111,13 +113,13 @@
 
 
   <?php
-    $sql = "SELECT * FROM treno";
-    $result = $db->query($sql);
-    echo $andata;
-    echo $ritorno;
-            
+      $andata = isset($_POST['andata']) ? $_POST['andata'] : 0;
+      $ritorno = isset($_POST['ritorno']) ? $_POST['ritorno'] : 0;
 
-     if ($result->rowCount() > 0) {
+      $sql = "SELECT * FROM treno";
+      $result = $db->query($sql);
+
+    if ($result->rowCount() > 0) {
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         if ($andata == 1 || $ritorno == 1) {
            echo '<div class="card">';    
@@ -126,7 +128,7 @@
            echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
            echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
            echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
-           echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+           echo '<a href="./prenotazione/prenotazione.php" class="btn btn-primary prenota">prenota</a>';
            echo '</div>';
            echo '</div>';
         }else if (empty($andata) || empty($ritorno)) { 
@@ -137,7 +139,7 @@
            echo '<p class="card-text">carrozza: ' . $row['nome_carrozza'] .'</p>';
            echo '<p class="card-text">tipologia: ' . $row['tipologia'] .'</p>';
            echo '<p class="card-text">numero treno: ' . $row['id_treno'] .'</p>';
-           echo '<a href="#" class="btn btn-primary prenota">prenota</a>';
+           echo '<a href="./login/utility/saveprenotazione.php" class="btn btn-primary prenota">prenota</a>';
            echo '</div>';
            echo '</div>';
         }

@@ -105,6 +105,12 @@
             ?>
         </div>
 
+
+        <?php
+          $sql = "SELECT km_stazione FROM treno";
+          $result = $db->query($sql);
+          ?>
+          
         <div class="form-group">
             <label for="depart-date">Data di partenza</label>
             <input type="date" id="depart-date" name="depart-date" required>
